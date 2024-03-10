@@ -7,6 +7,8 @@ from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.memory import ChatMemoryBuffer
 import streamlit as st
 
+key = st.secrets["ANYSCALE_API_KEY"]
+
 model_id = "meta-llama/Llama-2-70b-chat-hf"
 embed_model_id = "thenlper/gte-large"
 chunk_size = 128
@@ -14,12 +16,14 @@ chunk_overlap = 8
 accepted_file_types = ["txt", "doc", "docx", "pdf"]
 
 llm = Anyscale(
-    model=model_id
+    model=model_id,
+    api_key=key
 )
 
 embeddings = AnyscaleEmbedding(
     model=embed_model_id,
-    embed_batch_size=30
+    embed_batch_size=30,
+    api_key=key
 )
 
 Settings.llm = llm
